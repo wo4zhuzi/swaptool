@@ -105,23 +105,25 @@ func (c TokenBasic) TokenInfo(tokenAddress string) (*Token, error) {
 		return nil, errors.New("Get Token Error")
 	}
 	decimals, err := tokenContract.Decimals(&bind.CallOpts{})
-	if err != nil {
+	if err != nil && strings.Contains(err.Error(), "network") {
 		fmt.Println(err)
 		return nil, errors.New("Get Decimals Error")
 	}
 	tokenName, err := tokenContract.Name(&bind.CallOpts{})
-	if err != nil {
+	if err != nil && strings.Contains(err.Error(), "network") {
 		fmt.Println(err)
 		return nil, errors.New("Get Token Name Error")
 	}
 	symbol, err := tokenContract.Symbol(&bind.CallOpts{})
 
-	if err != nil {
+	if err != nil && strings.Contains(err.Error(), "network") {
+		fmt.Println(err)
 		return nil, errors.New("Get Token Name Error")
 	}
 	totalSupply, err := tokenContract.TotalSupply(&bind.CallOpts{})
 
-	if err != nil {
+	if err != nil && strings.Contains(err.Error(), "network") {
+		fmt.Println(err)
 		return nil, errors.New("Get Token TotalSupply Error")
 	}
 
